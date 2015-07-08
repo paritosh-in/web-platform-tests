@@ -6,19 +6,7 @@
 <script src="/resources/testharnessreport.js"></script>
 <script>
 
-function test_replaceWith(nodeName) {
-    var child;
-    var innerHTML;
-    if (nodeName == 'Comment') {
-        child = document.createComment('test');
-        innerHTML = '<!--test-->';
-    } else if (nodeName == 'Element') {
-        child = document.createElement('test');
-        innerHTML = '<test></test>';
-    } else {
-        child = document.createTextNode('test');
-        innerHTML = 'test';
-    }
+function test_replaceWith(child, nodeName, innerHTML) {
 
     test(function() {
         var parent = document.createElement('div');
@@ -75,18 +63,17 @@ function test_replaceWith(nodeName) {
         parent.appendChild(x);
         parent.appendChild(document.createTextNode('text'));
         child.replaceWith(x, 'text');
-        assert_equals(parent.innerHTML,'<x></x>texttext');
+        assert_equals(parent.innerHTML, '<x></x>texttext');
     }, nodeName + '.replaceWith() with one sibling of child and text as arguments.');
 
     test(function() {
         var parent = document.createElement('div');
         var x = document.createElement('x');
         parent.appendChild(child);
-        var innerHTML = parent.innerHTML;
         parent.appendChild(x);
         parent.appendChild(document.createTextNode('text'));
         child.replaceWith(x, child);
-        assert_equals(parent.innerHTML,'<x></x>' + innerHTML + 'text');
+        assert_equals(parent.innerHTML, '<x></x>' + innerHTML + 'text');
     }, nodeName + '.replaceWith() with one sibling of child and child itself as arguments.');
 
     test(function() {
@@ -96,11 +83,21 @@ function test_replaceWith(nodeName) {
         child.replaceWith(x, 'text');
         assert_equals(parent.innerHTML, '<x></x>text');
     }, nodeName + '.replaceWith() with one element and text as arguments.');
+
+    test(function() {
+        var parent = document.createElement('div');
+        var x = document.createElement('x');
+        var y = document.createElement('y');
+        parent.appendChild(x);
+        parent.appendChild(y);
+        child.replaceWith(x, y);
+        assert_equals(parent.innerHTML, '<x></x><y></y>');
+    }, nodeName + '.replaceWith() on a parentless child with two elements as arguments.');
 }
 
-test_replaceWith('Comment');
-test_replaceWith('Element');
-test_replaceWith('Text');
+test_replaceWith(document.createComment('test'), 'Comment', '<!--test-->');
+test_replaceWith(document.createElement('test'), 'Element', '<test></test>');
+test_replaceWith(document.createTextNode('test'), 'Text', 'test');
 
 </script>
 </html>

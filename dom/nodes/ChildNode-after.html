@@ -6,19 +6,7 @@
 <script src="/resources/testharnessreport.js"></script>
 <script>
 
-function test_after(nodeName) {
-    var child;
-    var innerHTML;
-    if (nodeName == 'Comment') {
-        child = document.createComment('test');
-        innerHTML = '<!--test-->';
-    } else if (nodeName == 'Element') {
-        child = document.createElement('test');
-        innerHTML = '<test></test>';
-    } else {
-        child = document.createTextNode('test');
-        innerHTML = 'test';
-    }
+function test_after(child, nodeName, innerHTML) {
 
     test(function() {
         var parent = document.createElement('div');
@@ -130,9 +118,9 @@ function test_after(nodeName) {
     }, nodeName + '.after() on a child without any parent.');
 }
 
-test_after('Comment');
-test_after('Element');
-test_after('Text');
+test_after(document.createComment('test'), 'Comment', '<!--test-->');
+test_after(document.createElement('test'), 'Element', '<test></test>');
+test_after(document.createTextNode('test'), 'Text', 'test');
 
 </script>
 </html>

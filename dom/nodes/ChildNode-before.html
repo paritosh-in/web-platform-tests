@@ -130,9 +130,9 @@ function test_before(nodeName) {
     }, nodeName + '.before() on a child without any parent.');
 }
 
-test_before('Comment');
-test_before('Element');
-test_before('Text');
+test_before(document.createComment('test'), 'Comment', '<!--test-->');
+test_before(document.createElement('test'), 'Element', '<test></test>');
+test_before(document.createTextNode('test'), 'Text', 'test');
 
 </script>
 </html>
