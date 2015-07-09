@@ -101,12 +101,12 @@ function test_before(child, nodeName, innerHTML) {
         var parent = document.createElement('div');
         var x = document.createElement('x');
         parent.appendChild(x);
-        parent.appendChild(document.createTextNode('text'));
+        parent.appendChild(document.createTextNode('1'));
         var y = document.createElement('y');
         parent.appendChild(y);
         parent.appendChild(child);
-        child.before(x, 'text');
-        var expected = 'text<y></y><x></x>text' + innerHTML;
+        child.before(x, '2');
+        var expected = '1<y></y><x></x>2' + innerHTML;
         assert_equals(parent.innerHTML, expected);
     }, nodeName + '.before() with one sibling of child and text as arguments.');
 
