@@ -6,19 +6,7 @@
 <script src="/resources/testharnessreport.js"></script>
 <script>
 
-function test_before(nodeName) {
-    var child;
-    var innerHTML;
-    if (nodeName == 'Comment') {
-        child = document.createComment('test');
-        innerHTML = '<!--test-->';
-    } else if (nodeName == 'Element') {
-        child = document.createElement('test');
-        innerHTML = '<test></test>';
-    } else {
-        child = document.createTextNode('test');
-        innerHTML = 'test';
-    }
+function test_before(child, nodeName, innerHTML) {
 
     test(function() {
         var parent = document.createElement('div');

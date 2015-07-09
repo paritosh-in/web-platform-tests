@@ -61,9 +61,9 @@ function test_replaceWith(child, nodeName, innerHTML) {
         var x = document.createElement('x');
         parent.appendChild(child);
         parent.appendChild(x);
-        parent.appendChild(document.createTextNode('text'));
-        child.replaceWith(x, 'text');
-        assert_equals(parent.innerHTML, '<x></x>texttext');
+        parent.appendChild(document.createTextNode('1'));
+        child.replaceWith(x, '2');
+        assert_equals(parent.innerHTML, '<x></x>21');
     }, nodeName + '.replaceWith() with one sibling of child and text as arguments.');
 
     test(function() {
