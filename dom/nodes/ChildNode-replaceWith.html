@@ -32,6 +32,13 @@ function test_replaceWith(child, nodeName, innerHTML) {
     test(function() {
         var parent = document.createElement('div');
         parent.appendChild(child);
+        child.replaceWith('');
+        assert_equals(parent.innerHTML, '');
+    }, nodeName + '.replaceWith() with empty string as an argument.');
+
+    test(function() {
+        var parent = document.createElement('div');
+        parent.appendChild(child);
         child.replaceWith('text');
         assert_equals(parent.innerHTML, 'text');
     }, nodeName + '.replaceWith() with only text as an argument.');
